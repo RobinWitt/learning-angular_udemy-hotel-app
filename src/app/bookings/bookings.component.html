@@ -1,0 +1,25 @@
+<ul class="list-group mt-4">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <h2 class="fs-4">
+        <span>Kundenname: </span
+        ><span class="fw-bold">{{ booking.customerName }}</span>
+      </h2>
+      <div>
+        <span>Zimmer: </span>
+        <span class="fw-bold">{{ booking.roomNumber }}</span>
+      </div>
+      <div>
+        <span>Anreise: </span>
+        <span class="fw-bold">{{
+          booking.startDate | date : "dd/MM/yyyy"
+        }}</span>
+      </div>
+      <div>
+        <span>Abreise: </span>
+        <span class="fw-bold">{{ booking.endDate | date : "dd/MM/yyyy" }}</span>
+      </div>
+    </div>
+    <span class="badge bg-secondary pill fs-6">{{ booking.id }}</span>
+  </li>
+</ul>
