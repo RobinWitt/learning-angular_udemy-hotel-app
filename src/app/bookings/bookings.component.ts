@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Bookings } from '../mock-bookings';
+import { Booking } from '../booking';
 
 @Component({
   selector: 'app-bookings',
@@ -9,7 +10,9 @@ import { Bookings } from '../mock-bookings';
 export class BookingsComponent {
   bookings = Bookings;
 
-  deleteBooking(id: number): void {
-    this.bookings = Bookings.filter((booking) => booking.id !== id);
+  deleteBooking(booking: Booking): void {
+    let index = Bookings.indexOf(booking);
+
+    Bookings.splice(index, 1);
   }
 }
