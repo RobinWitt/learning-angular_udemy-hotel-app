@@ -13,13 +13,13 @@
       </p>
       <p>
         <span>Anreise: </span>
-        <span class="fw-bold">{{
-          booking.startDate | date : "dd/MM/yyyy"
-        }}</span>
+        <span class="fw-bold">{{ booking.checkIn | date : "dd/MM/yyyy" }}</span>
       </p>
       <p>
         <span>Abreise: </span>
-        <span class="fw-bold">{{ booking.endDate | date : "dd/MM/yyyy" }}</span>
+        <span class="fw-bold">{{
+          booking.checkOut | date : "dd/MM/yyyy"
+        }}</span>
       </p>
     </div>
     <span class="badge bg-secondary fs-6">{{ booking.id }}</span>

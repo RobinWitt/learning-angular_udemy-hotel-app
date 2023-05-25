@@ -6,17 +6,12 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateBookingComponent } from './create-booking/create-booking.component';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    BookingsComponent,
-    CreateBookingComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [AppComponent, BookingsComponent, CreateBookingComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
