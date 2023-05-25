@@ -1,7 +1,7 @@
 <ul class="list-group mt-3">
   <li
     *ngFor="let booking of bookings"
-    class="position-relative list-group-item d-flex justify-content-between align-items-start border rounded-5 mb-2"
+    class="list-group-item d-flex justify-content-between align-items-center border rounded-5 mb-2"
   >
     <div class="ms-2 me-auto">
       <h2 class="fs-4 fw-bold">
@@ -22,8 +22,13 @@
         }}</span>
       </p>
     </div>
-    <a class="position-absolute bottom-0 end-0 m-2 btn btn-primary" href="#"
-      >Buchung ändern</a
-    >
+    <div class="d-flex flex-column gap-2">
+      <a class="btn btn-success" routerLink="/editBooking/{{ booking.id }}"
+        >Buchung ändern</a
+      >
+      <button class="btn btn-danger" (click)="deleteBooking(booking.id)">
+        Buchung löschen
+      </button>
+    </div>
   </li>
 </ul>

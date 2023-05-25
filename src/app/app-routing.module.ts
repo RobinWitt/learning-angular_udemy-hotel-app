@@ -13,6 +13,10 @@ const routes: Routes = [
     component: CreateBookingComponent,
   },
   {
+    path: 'editBooking/:id',
+    component: CreateBookingComponent,
+  },
+  {
     path: '',
     redirectTo: 'bookings',
     pathMatch: 'full',

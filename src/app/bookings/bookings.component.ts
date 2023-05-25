@@ -8,4 +8,8 @@ import { Bookings } from '../mock-bookings';
 })
 export class BookingsComponent {
   bookings = Bookings;
+
+  deleteBooking(id: number): void {
+    this.bookings = Bookings.filter((booking) => booking.id !== id);
+  }
 }
