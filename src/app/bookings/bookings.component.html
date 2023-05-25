@@ -1,7 +1,7 @@
 <ul class="list-group mt-3">
   <li
     *ngFor="let booking of bookings"
-    class="list-group-item d-flex justify-content-between align-items-start border rounded-5 mb-2"
+    class="position-relative list-group-item d-flex justify-content-between align-items-start border rounded-5 mb-2"
   >
     <div class="ms-2 me-auto">
       <h2 class="fs-4 fw-bold">
@@ -22,6 +22,8 @@
         }}</span>
       </p>
     </div>
-    <span class="badge bg-secondary fs-6">{{ booking.id }}</span>
+    <a class="position-absolute bottom-0 end-0 m-2 btn btn-primary" href="#"
+      >Buchung ändern</a
+    >
   </li>
 </ul>
