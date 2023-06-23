@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Booking } from './booking';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +38,12 @@ export class InMemoryDataService implements InMemoryDbService {
       },
     ];
 
-    return { bookings };
+    const roomNumbers: number[] = [];
+    for (let i = 100; i <= 150; i++) {
+      roomNumbers.push(i);
+    }
+
+    return { bookings, roomNumbers };
   }
 
   constructor() {}

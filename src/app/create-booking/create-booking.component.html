@@ -1,68 +1,62 @@
 <div class="card">
   <div class="card-header text-center"><h2>Neue Buchung eintragen</h2></div>
-  <div class="card-body">
-    <form>
-      <div class="row gap-3">
-        <div class="col-2">
-          <label class="form-label mb-0" for="customerName">Name</label>
-          <input
-            class="form-control"
-            id="customerName"
-            name="customerName"
-            [(ngModel)]="booking.customerName"
-            type="text"
-          />
-        </div>
-        <div class="col-2">
-          <label class="form-label mb-0" for="roomNumber">Zimmer</label>
-          <input
-            class="form-control"
-            id="roomNumber"
-            name="roomNumber"
-            [(ngModel)]="booking.roomNumber"
-            type="number"
-          />
-        </div>
-        <div class="col-3">
-          <label class="form-label mb-0" for="id">ID</label>
-          <input
-            class="form-control"
-            id="id"
-            name="id"
-            [(ngModel)]="booking.id"
-            type="text"
-            disabled="true"
-          />
-        </div>
+  <div class="card-body d-flex justify-content-center">
+    <form class="d-flex gap-4 justify-content-evenly">
+      <div>
+        <label class="form-label mb-0" for="customerName">Name</label>
+        <input
+          class="form-control"
+          id="customerName"
+          name="customerName"
+          [(ngModel)]="booking.customerName"
+          type="text"
+        />
       </div>
-      <div class="row gap-3">
-        <div class="col-2">
-          <label class="form-label mb-0" for="checkIn">Anreise</label>
-          <input
-            class="form-control"
-            id="checkIn"
-            name="checkIn"
-            [value]="booking.checkIn | date : 'yyyy-MM-dd'"
-            (input)="dateChanged($event, true)"
-            type="date"
-          />
-        </div>
-        <div class="col-2">
-          <label class="form-label mb-0" for="checkOut">Abreise</label>
-          <input
-            class="form-control"
-            id="checkOut"
-            name="checkOut"
-            [value]="booking.checkOut | date : 'yyyy-MM-dd'"
-            (input)="dateChanged($event, false)"
-            type="date"
-          />
-        </div>
+      <div>
+        <label class="form-label mb-0" for="roomNumber">Zimmer</label>
+        <select
+          class="form-select"
+          id="roomNumber"
+          name="roomNumber"
+          aria-label="Default select example"
+          [(ngModel)]="booking.roomNumber"
+        >
+          <option [ngValue]="null" disabled>Zimmernummer wählen</option>
+          <option *ngFor="let roomNumber of roomNumbers" [ngValue]="roomNumber">
+            {{ roomNumber }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label mb-0" for="checkIn">Anreise</label>
+        <input
+          class="form-control"
+          id="checkIn"
+          name="checkIn"
+          [value]="booking.checkIn | date : 'yyyy-MM-dd'"
+          (input)="dateChanged($event, true)"
+          type="date"
+        />
+      </div>
+      <div>
+        <label class="form-label mb-0" for="checkOut">Abreise</label>
+        <input
+          class="form-control"
+          id="checkOut"
+          name="checkOut"
+          [value]="booking.checkOut | date : 'yyyy-MM-dd'"
+          (input)="dateChanged($event, false)"
+          type="date"
+        />
       </div>
     </form>
   </div>
-  <div class="card-footer">
-    <button (click)="save()" class="btn btn-primary" type="submit">
+  <div class="card-footer d-grid">
+    <button
+      (click)="save()"
+      class="btn btn-primary col-4 mx-auto"
+      type="submit"
+    >
       Speichern
     </button>
   </div>

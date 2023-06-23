@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Bookings } from './mock-bookings';
 import { Booking } from './booking';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
