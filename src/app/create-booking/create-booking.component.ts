@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Booking } from '../booking';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BookingService } from '../booking.service';
+import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'app-create-booking',
@@ -16,30 +17,25 @@ export class CreateBookingComponent implements OnInit {
   ) {}
 
   booking: Booking = {
-    id: 100,
-    customerName: 'Your Name',
-    roomNumber: 100,
+    id: nanoid(),
+    customerName: '',
+    roomNumber: 0,
     checkIn: new Date(),
     checkOut: new Date(),
   };
 
   ngOnInit(): void {
     if (this.router.url !== '/createBooking') {
-      const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+      const id = String(this.activatedRoute.snapshot.paramMap.get('id'));
 
-      const bookingById = this.bookingService.getBookingById(id);
-      this.booking = bookingById;
+      this.bookingService.getBookingById(id).subscribe((result) => {
+        this.booking = result;
+      });
     }
   }
 
   save(): void {
-    let bookingById = this.bookingService.getBookingById(this.booking.id);
-
-    if (bookingById === null || bookingById === undefined) {
-      this.bookingService.addBooking(this.booking);
-    } else {
-      this.bookingService.updateBooking(this.booking);
-    }
+    this.bookingService.addBooking(this.booking).subscribe();
     this.router.navigate(['bookings']);
   }
 
