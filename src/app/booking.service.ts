@@ -31,8 +31,6 @@ export class BookingService {
     const response = this.httpClient.delete<Booking>(
       this.bookingsUrl + '/' + booking.id
     );
-
-    console.log(response);
     return response;
   }
 }
