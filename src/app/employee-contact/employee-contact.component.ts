@@ -7,8 +7,14 @@ import { Component } from '@angular/core';
 })
 export class EmployeeContactComponent {
   signUpMail: string = '';
+  submitSuccess: boolean = false;
 
   onSubmit(): void {
-    console.log('Submit Email');
+    this.submitSuccess = true;
+  }
+
+  onReset(): void {
+    this.submitSuccess = false;
+    this.signUpMail = '';
   }
 }

@@ -10,6 +10,7 @@
       <input
         [(ngModel)]="signUpMail"
         #signUpMailInput="ngModel"
+        [disabled]="this.submitSuccess === true"
         email
         required
         class="form-control"
@@ -23,28 +24,41 @@
         (signUpMailInput.touched || signUpMailInput.dirty)
       "
     >
-      <div
+      <label
         *ngIf="signUpMailInput.errors?.['email']"
-        class="alert alert-danger mt-2 mb-0"
+        class="text-danger mt-2 mb-0"
       >
         Bitte gültige Email-Adresse eintragen
-      </div>
-      <div
+      </label>
+      <label
         *ngIf="signUpMailInput.errors?.['required']"
-        class="alert alert-danger mt-2 mb-0"
+        class="text-danger mt-2 mb-0"
       >
         Email-Adresse ist erforderlich
-      </div>
+      </label>
     </div>
+    <label
+      *ngIf="this.submitSuccess === true"
+      class="text-success text-center mt-2 mb-0"
+      >Email hinzugefügt!</label
+    >
   </div>
   <div class="card-footer d-grid">
     <button
+      *ngIf="this.submitSuccess === false"
       [disabled]="signUpMailForm.invalid"
       (click)="onSubmit()"
       class="btn btn-primary col-4 mx-auto"
       type="submit"
     >
       Speichern
+    </button>
+    <button
+      *ngIf="this.submitSuccess === true"
+      (click)="onReset()"
+      class="btn btn-outline-primary col-4 mx-auto"
+    >
+      Weitere Email hinzufügen
     </button>
   </div>
 </div>
