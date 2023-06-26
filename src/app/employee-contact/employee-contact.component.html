@@ -1,20 +1,49 @@
 <div class="card">
   <div class="card-header text-center"><h2>Mitarbeiter-Newsletter</h2></div>
-  <div class="card-body d-flex justify-content-center">
-    <form>
+  <div
+    class="card-body d-flex flex-column justify-content-center align-items-center"
+  >
+    <form #signUpMailForm="ngForm">
       <label class="form-label mb-0" for="signUpMail"
         >E-Mail Adresse hinzufügen</label
       >
       <input
+        [(ngModel)]="signUpMail"
+        #signUpMailInput="ngModel"
+        email
+        required
         class="form-control"
         id="signUpMail"
         name="signUpMail"
-        type="email"
       />
     </form>
+    <div
+      *ngIf="
+        signUpMailInput.invalid &&
+        (signUpMailInput.touched || signUpMailInput.dirty)
+      "
+    >
+      <div
+        *ngIf="signUpMailInput.errors?.['email']"
+        class="alert alert-danger mt-2 mb-0"
+      >
+        Bitte gültige Email-Adresse eintragen
+      </div>
+      <div
+        *ngIf="signUpMailInput.errors?.['required']"
+        class="alert alert-danger mt-2 mb-0"
+      >
+        Email-Adresse ist erforderlich
+      </div>
+    </div>
   </div>
   <div class="card-footer d-grid">
-    <button class="btn btn-primary col-4 mx-auto" type="submit">
+    <button
+      [disabled]="signUpMailForm.invalid"
+      (click)="onSubmit()"
+      class="btn btn-primary col-4 mx-auto"
+      type="submit"
+    >
       Speichern
     </button>
   </div>

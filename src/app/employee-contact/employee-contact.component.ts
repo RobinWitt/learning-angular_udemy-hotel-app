@@ -9,6 +9,6 @@ export class EmployeeContactComponent {
   signUpMail: string = '';
 
   onSubmit(): void {
-    console.log('Submit');
+    console.log('Submit Email');
   }
 }
