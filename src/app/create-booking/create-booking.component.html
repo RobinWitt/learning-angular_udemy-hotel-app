@@ -1,9 +1,47 @@
 <div class="card">
   <div class="card-header text-center">
-    <h2>Neue Buchung eintragen</h2>
+    <h2 *ngIf="this.editBooking === true">Buchung bearbeiten</h2>
+    <h2 *ngIf="this.editBooking === false">Neue Buchung eintragen</h2>
     <span class="text-muted">ID: {{ booking.id }}</span>
   </div>
-  <form [formGroup]="bookingForm" (ngSubmit)="save()">
+
+  <div
+    *ngIf="this.editBooking === true && this.loadBooking === true"
+    class="text-center"
+  >
+    <svg
+      version="1.1"
+      id="L9"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
+      viewBox="0 0 100 100"
+      enable-background="new 0 0 0 0"
+      xml:space="preserve"
+      style="height: 100px"
+    >
+      <path
+        fill="currentColor"
+        d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"
+      >
+        <animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          dur="1s"
+          from="0 50 50"
+          to="360 50 50"
+          repeatCount="indefinite"
+        />
+      </path>
+    </svg>
+  </div>
+  <form
+    *ngIf="this.editBooking === false || this.loadBooking === false"
+    [formGroup]="bookingForm"
+    (ngSubmit)="save()"
+  >
     <div
       class="card-body d-flex flex-column justify-content-center align-items-center"
     >
@@ -16,6 +54,14 @@
             formControlName="customerName"
             type="text"
           />
+          <label
+            *ngIf="
+              bookingForm.get('customerName')?.hasError('minlength') ||
+              bookingForm.get('customerName')?.hasError('required')
+            "
+            class="text-warning"
+            >Gast eingeben (min. 4 Zeichen)</label
+          >
         </div>
         <div>
           <label class="form-label mb-0" for="roomNumber">Zimmer</label>
@@ -32,6 +78,11 @@
               {{ roomNumber }}
             </option>
           </select>
+          <label
+            *ngIf="bookingForm.get('roomNumber')?.hasError('required')"
+            class="text-warning"
+            >Zimmernummer eingeben</label
+          >
         </div>
         <div>
           <label class="form-label mb-0" for="checkIn">Anreise</label>
@@ -43,6 +94,11 @@
             (input)="dateChanged($event, true)"
             type="date"
           />
+          <label
+            *ngIf="bookingForm.get('checkIn')?.hasError('required')"
+            class="text-warning"
+            >Check-In Datum eingeben</label
+          >
         </div>
         <div>
           <label class="form-label mb-0" for="checkOut">Abreise</label>
@@ -54,11 +110,20 @@
             (input)="dateChanged($event, false)"
             type="date"
           />
+          <label
+            *ngIf="bookingForm.get('checkOut')?.hasError('required')"
+            class="text-warning"
+            >Check-Out Datum eingeben</label
+          >
         </div>
       </div>
     </div>
     <div class="card-footer d-grid">
-      <button type="submit" class="btn btn-primary col-4 mx-auto">
+      <button
+        [disabled]="bookingForm.invalid"
+        type="submit"
+        class="btn btn-primary col-4 mx-auto"
+      >
         Speichern
       </button>
     </div>

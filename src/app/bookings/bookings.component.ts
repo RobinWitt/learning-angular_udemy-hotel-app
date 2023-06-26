@@ -11,10 +11,12 @@ export class BookingsComponent implements OnInit {
   constructor(private bookingService: BookingService) {}
 
   bookings: Booking[] = [];
+  loadBookings: boolean = true;
 
   ngOnInit(): void {
     this.bookingService.getBookings().subscribe((result) => {
       this.bookings = result;
+      this.loadBookings = false;
     });
   }
 

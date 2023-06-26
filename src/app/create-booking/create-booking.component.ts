@@ -30,20 +30,28 @@ export class CreateBookingComponent implements OnInit {
   };
 
   bookingForm: FormGroup = this.formbuilder.group({
-    customerName: ['', Validators.required],
+    customerName: [
+      '',
+      Validators.compose([Validators.required, Validators.minLength(4)]),
+    ],
     roomNumber: ['', Validators.required],
     checkIn: ['', Validators.required],
     checkOut: ['', Validators.required],
   });
 
   roomNumbers: number[] = [];
+  editBooking: boolean = false;
+  loadBooking: boolean = true;
 
   ngOnInit(): void {
     if (this.router.url !== '/createBooking') {
+      this.editBooking = true;
       const id = String(this.activatedRoute.snapshot.paramMap.get('id'));
 
       this.bookingService.getBookingById(id).subscribe((result) => {
         this.booking = result;
+
+        this.loadBooking = false;
 
         this.bookingForm.setValue({
           customerName: this.booking.customerName,
