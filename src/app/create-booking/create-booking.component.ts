@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Booking } from '../booking';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BookingService } from '../booking.service';
 import { nanoid } from 'nanoid';
+import { Booking } from '../booking';
+import { BookingService } from '../booking.service';
 import { RoomNumbersService } from '../room-numbers.service';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-create-booking',
@@ -15,7 +17,8 @@ export class CreateBookingComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private bookingService: BookingService,
-    private roomNumbersService: RoomNumbersService
+    private roomNumbersService: RoomNumbersService,
+    private formbuilder: FormBuilder
   ) {}
 
   booking: Booking = {
@@ -26,6 +29,13 @@ export class CreateBookingComponent implements OnInit {
     checkOut: new Date(),
   };
 
+  bookingForm: FormGroup = this.formbuilder.group({
+    customerName: ['', Validators.required],
+    roomNumber: ['', Validators.required],
+    checkIn: ['', Validators.required],
+    checkOut: ['', Validators.required],
+  });
+
   roomNumbers: number[] = [];
 
   ngOnInit(): void {
@@ -34,6 +44,13 @@ export class CreateBookingComponent implements OnInit {
 
       this.bookingService.getBookingById(id).subscribe((result) => {
         this.booking = result;
+
+        this.bookingForm.setValue({
+          customerName: this.booking.customerName,
+          roomNumber: this.booking.roomNumber,
+          checkIn: this.booking.checkIn,
+          checkOut: this.booking.checkOut,
+        });
       });
     }
 
@@ -43,6 +60,11 @@ export class CreateBookingComponent implements OnInit {
   }
 
   save(): void {
+    this.booking.customerName = this.bookingForm.get('customerName')?.value;
+    this.booking.roomNumber = this.bookingForm.get('roomNumber')?.value;
+    this.booking.checkIn = this.bookingForm.get('checkIn')?.value;
+    this.booking.checkOut = this.bookingForm.get('checkOut')?.value;
+
     this.bookingService.addBooking(this.booking).subscribe();
     this.router.navigate(['bookings']);
   }
